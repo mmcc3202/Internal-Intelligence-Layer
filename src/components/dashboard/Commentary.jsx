@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useApp } from '../../store/AppContext'
 import { formatDate } from '../../utils/formatters'
 
@@ -6,6 +6,10 @@ export function Commentary() {
   const { state, dispatch } = useApp()
   const [editing, setEditing] = useState(false)
   const [value, setValue] = useState(state.meta.commentary || '')
+
+  useEffect(() => {
+    if (!editing) setValue(state.meta.commentary || '')
+  }, [state.meta.commentary, editing])
 
   function handleBlur() {
     dispatch({ type: 'SET_COMMENTARY', payload: value })
