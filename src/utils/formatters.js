@@ -1,26 +1,20 @@
-export function formatValue(valueMillion) {
-  if (valueMillion === null || valueMillion === undefined || isNaN(valueMillion)) return '—'
-  if (valueMillion >= 1000) return `£${(valueMillion/1000).toFixed(1)}B`
-  if (valueMillion >= 1) return `£${valueMillion.toFixed(1)}M`
-  return `£${(valueMillion * 1000).toFixed(0)}K`
+export function formatCurrency(value, unit = '$M') {
+  if (value == null || Number.isNaN(value)) return '—'
+  const symbol = unit.replace(/[A-Z]/g, '')
+  const suffix = unit.replace(/[^A-Z]/g, '')
+  return `${symbol}${value.toLocaleString(undefined, { maximumFractionDigits: 1 })}${suffix}`
 }
 
-export function formatDate(isoString) {
-  if (!isoString) return '—'
-  return new Date(isoString).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })
+export function formatPercent(value, digits = 1) {
+  if (value == null || Number.isNaN(value)) return '—'
+  return `${value.toFixed(digits)}%`
 }
 
-export function formatStage(stageId) {
-  const map = {
-    G0: 'G0 – Idea', G1: 'G1 – Solution Outline', G2: 'G2 – MVP Defined',
-    G3: 'G3 – MVP Built', G4: 'G4 – Deployed & Scaled', G5: 'G5 – Benefits Realised',
-    Banked: 'Banked', Rejected: 'Rejected'
+export function formatDate(iso) {
+  if (!iso) return '—'
+  try {
+    return new Date(iso).toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' })
+  } catch {
+    return iso
   }
-  return map[stageId] || stageId
-}
-
-export function formatFileSize(bytes) {
-  if (bytes < 1024) return `${bytes} B`
-  if (bytes < 1024 * 1024) return `${(bytes/1024).toFixed(1)} KB`
-  return `${(bytes/1024/1024).toFixed(1)} MB`
 }

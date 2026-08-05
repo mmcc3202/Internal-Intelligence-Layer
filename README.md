@@ -1,16 +1,41 @@
-# React + Vite
+# Profit Pool Analyzer
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A tool for running a profit-pool study on an industry sector: curate
+research from credible sources into a database, analyze where revenue and
+profit concentrate across the value chain and across competitors, and
+export the result as a PowerPoint deck that highlights a focal company
+against its peers.
 
-Currently, two official plugins are available:
+See [ARCHITECTURE.md](./ARCHITECTURE.md) for the full design — data model,
+research/curation pipeline, analysis engine, and presentation export.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Getting started
 
-## React Compiler
+```bash
+npm install
+npm run dev
+```
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+The app loads with an illustrative (fictional) sample sector pre-loaded so
+every screen has data to show. Use **Reset workspace** in the header to
+start from a blank slate with your own sector.
 
-## Expanding the ESLint configuration
+## Workflow
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+1. **Setup** — define the sector, its value chain stages, and the peer set
+   (mark one company as focal).
+2. **Research Library** — add sources, paste excerpts, run extraction, and
+   review/approve the candidate facts it proposes.
+3. **Data Curation** — the curated metrics table; edit directly or fill
+   gaps the research pipeline didn't cover.
+4. **Analysis** — profit pool matrix, value chain profit pool map, and peer
+   benchmarking, with plain-language takeaways computed live from the data.
+5. **Present** — pick slides and export a native, editable PowerPoint deck,
+   or download the value chain map as a PNG.
+
+## Scripts
+
+- `npm run dev` — start the dev server
+- `npm run build` — production build
+- `npm run lint` — ESLint
+- `npm run preview` — preview the production build
