@@ -1,5 +1,5 @@
-const STORAGE_KEY = 'vf_tracker_v1'
-const MAX_SIZE_BYTES = 5 * 1024 * 1024  // 5MB
+const STORAGE_KEY = 'profit_pool_analyzer_v1'
+const MAX_SIZE_BYTES = 5 * 1024 * 1024 // 5MB — see ARCHITECTURE.md for the real-DB migration path
 
 export function loadFromStorage() {
   try {
@@ -19,15 +19,20 @@ export function saveToStorage(state) {
   }
 }
 
-export function estimateStorageUsage() {
+export function clearStorage() {
   try {
-    const raw = localStorage.getItem(STORAGE_KEY)
-    return raw ? new Blob([raw]).size : 0
+    localStorage.removeItem(STORAGE_KEY)
   } catch {
-    return 0
+    // ignore
   }
 }
 
 export function getStoragePercent() {
-  return (estimateStorageUsage() / MAX_SIZE_BYTES) * 100
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY)
+    const size = raw ? new Blob([raw]).size : 0
+    return (size / MAX_SIZE_BYTES) * 100
+  } catch {
+    return 0
+  }
 }
